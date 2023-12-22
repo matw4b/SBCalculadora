@@ -6,9 +6,11 @@ Matheus Guaraci Lima Bouças Alves 180046951
 
 # Compilar 32bits e 16 bits
 nasm -f elf -o calculadora.o calculadora.asm
+
 nasm -f elf -o IOCalc.o IOCalc.asm
+
 ld -m elf_i386 -o calculadora calculadora.o IOCalc.o
 
 ## Aviso importante:
-Os programas possuem os mesmos nomes para manter os mesmos comandos na compilação, portanto o que diferenciam eles são as pastas onde estão localizados 
-e os %define que alteram os registradores utilizados. Os comentários da versão de 32 bits foram mantidos na de 16.
+Os programas possuem os mesmos nomes para manter os mesmos comandos na compilação, portanto o que diferenciam eles são as pastas onde estão localizados, 
+os %define que alteram os registradores utilizados, e algummas constantes. Os comentários da versão de 32 bits foram mantidos na de 16.
