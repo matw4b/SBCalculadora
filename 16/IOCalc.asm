@@ -188,7 +188,7 @@ print_number:
 			cmp		reg1, 0
 			jne		convert_loop ; faz isso até eax ser 0, ou seja, não ter mais dígitos
 			
-			cmp		dword [ebp+8], 0
+			cmp		word [ebp+8], 0
 			jge		print_string ; verifica se o número é negativo, caso não seja, já está pronto para fazer o print
 			
 			push	0x2d ; adiciona o sinal caso o número seja negativo
