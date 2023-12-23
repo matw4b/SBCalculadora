@@ -155,10 +155,6 @@ get_number:
 
 ;exibe um valor de 32 bits com sinal. exige um parametro na pilha e retorna a string em EAX
 ;possui o número a ser convertido em string como parametro na pilha
-; observação importante: por mais que -2.147.483.648 seja representável em 32 bits, não é possível imprimir ele
-; pois estou convertendo o número para o seu valor positivo para conseguir exibir os dígitos. E +2.147.483.648
-; é um número não representável em 32 bits, apenas o seu antecessor +2.147.483.647 é representável.
-; Portanto, o intervalo de resultados possíveis de imprimir é +2.147.483.647 até -2.147.483.648.
 print_number:
 			enter	0,0 ;frame da pilha
 			
@@ -174,19 +170,26 @@ print_number:
 			
 			mov		reg1, [ebp+8] ; coloca o número de 32 bits a ser convertido em eax
 			mov		reg3, 10 ; constante 10 para dividir e ir separando os digitos
-			cmp		reg1, 0
-			jge		convert_loop ; se for positivo, vai para o loop de conversão
 			
-			neg reg1 ; faz o complemento de 2 e torna positivo
+			;ignore essas instruções comentadas. são ideias descartadas
+			;cmp		reg1, 0
+			;jge		convert_loop ; se for positivo, vai para o loop de conversão
+			
+			;neg reg1 ; faz o complemento de 2 e torna positivo
 			
 		convert_loop:
 			add		esi, r_size
 			cwd ; trocar para cwd na versao de 16/ extende o sinal de eax para edx
 			idiv	reg3 ; divide eax por ecx e joga o resto em edx
-			add		reg4, 30h ; converte o dígito em string
-			push	reg4 ; empilha o digito
-			cmp		reg1, 0
-			jne		convert_loop ; faz isso até eax ser 0, ou seja, não ter mais dígitos
+			cmp		reg4, 0 ;testa se o resto da divisão é negativo
+			jge		ready
+			neg		reg4 ; se o resto é negativo, pegamos o seu valor absoluto
+			
+			ready:
+				add		reg4, 30h ; converte o dígito em string
+				push	reg4 ; empilha o digito
+				cmp		reg1, 0
+				jne		convert_loop ; faz isso até eax ser 0, ou seja, não ter mais dígitos
 			
 			cmp		word [ebp+8], 0
 			jge		print_string ; verifica se o número é negativo, caso não seja, já está pronto para fazer o print
