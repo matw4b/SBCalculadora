@@ -30,5 +30,10 @@ A especificação do trabalho diz que a função principal NÃO deve fazer opera
 devem estar no mesmo arquivo da função principal. Isso me deixou meio confuso, pois na minha cabeça eu já tinha organizado as operações do programa
 pelos arquivos (então a função principal faria o menu e finalizava o programa, teria um arquivo para operações de I/O, e os outros com as operações da
 calculadora). Mas para seguir a especificação, as funções que estão no arquivo IOCalc.asm foram jogadas no calculadora.asm, apenas ignore a existência dele e compile os
-programas com os comandos acima (caso eu esqueça de tirar o arquivo da pasta). A especificação também mandava fazer um programa que alternava de precisão, mas fiz o que
-a sua mensagem de 22 de novembro ordenava, que é fazer 2 programas, um pra cada precisão
+programas com os comandos acima (caso eu esqueça de tirar o arquivo da pasta).
+
+A especificação também mandava fazer um programa que alternava de precisão, mas fiz o que a sua mensagem de 22 de novembro ordenava, que é fazer 2 programas, um pra cada precisão.
+
+Conforme especificado, somente as funções de multiplicação e exponenciação possuem mensagem de overflow.
+
+TODAS as funcionalidades exigidas foram feitas em AMBAS as precisões.
