@@ -64,6 +64,15 @@ section .data
 	
 	overflow_msg		db "OCORREU OVERFLOW!", 0ah, 0dh
 	overflow_size		equ $-overflow_msg
+	
+	b_msg				db "BASE: ", 0h
+	b_size				equ $-b_msg
+	
+	exp_msg				db "EXPOENTE: ", 0h
+	exp_size			equ $-exp_msg
+	
+	div_msg				db "DIVISOR: ", 0h
+	div_size			equ $-div_msg
 
 section .bss
 	name		resb 100
@@ -71,9 +80,10 @@ section .bss
 	
 section .text
 
-extern soma, sub, mul
+extern soma, sub, mul, div, exp, mod
 global exit, operation_msg, operation_size, new_line, new_line_size, result_msg, result_size, overflow_msg, overflow_size
 global print_msg, scanner, get_number, print_number
+global b_msg, b_size, exp_msg, exp_size, div_msg, div_size
 
 global _start
 
@@ -97,12 +107,18 @@ menu:		PrintSTR menu_message, menu_message_size
 			;add		esp, 4
 			
 			sub		byte [choice], 30h ; converte a escolha de char pra inteiro
-			cmp		byte [choice], 1 ;
+			cmp		byte [choice], 1
 			je		op1
-			cmp		byte [choice], 2 ;
+			cmp		byte [choice], 2
 			je		op2
-			cmp		byte [choice], 3 ;
+			cmp		byte [choice], 3
 			je		op3
+			cmp		byte [choice], 4
+			je		op4			
+			cmp		byte [choice], 5
+			je		op5
+			cmp		byte [choice], 6
+			je		op6 ;saltos para chamar as operações da calculadora
 			
 			
 exit:		mov		eax, 1
@@ -135,9 +151,26 @@ op3:		call	mul
 			PrintSTR new_line, new_line_size
 			jmp		menu
 			
+op4:		call	div
+			PrintSTR new_line, new_line_size
+			PrintSTR enter_msg, enter_size
+			LeituraSTR choice, choice_size
+			PrintSTR new_line, new_line_size
+			jmp		menu
 			
+op5:		call	exp
+			PrintSTR new_line, new_line_size
+			PrintSTR enter_msg, enter_size
+			LeituraSTR choice, choice_size
+			PrintSTR new_line, new_line_size
+			jmp		menu
 			
-			
+op6:		call	mod
+			PrintSTR new_line, new_line_size
+			PrintSTR enter_msg, enter_size
+			LeituraSTR choice, choice_size
+			PrintSTR new_line, new_line_size
+			jmp		menu
 			
 			
 			
